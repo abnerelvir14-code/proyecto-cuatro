@@ -1,0 +1,8 @@
+﻿<div class="card p-3 my-3 text-center" [@toggleState]="isStateActive ? 'active' : 'inactive'">
+  <h5 class="text-white">Componente con Animación</h5>
+  <button 
+    class="btn btn-light mt-2" 
+    (click)="toggleAnimation()">
+    Cambiar Estado (Animar)
+  </button>
+</div>

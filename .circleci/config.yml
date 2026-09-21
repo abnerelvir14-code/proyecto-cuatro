@@ -1,0 +1,29 @@
+﻿version: 2.1
+jobs:
+  build_and_test:
+    docker:
+      - image: cimg/node:18.16.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Instalar dependencias
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Ejecutar pruebas unitarias
+          command: npm test -- --watch=false --browsers=ChromeHeadless
+      - run:
+          name: Compilar proyecto
+          command: npm run build
+workflows:
+  version: 2
+  build_and_test_workflow:
+    jobs:
+      - build_and_test

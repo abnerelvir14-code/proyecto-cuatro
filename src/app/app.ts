@@ -1,12 +1,21 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+﻿import { Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: false,
   templateUrl: './app.html',
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('proyecto-cuatro');
+  private store = inject(Store);
+  counts$: Observable<{ [tag: string]: number }> = this.store.select((state: any) => state.tracking.counts);
+  showPopup = false;
+
+  mapboxAccessToken = 'pk.eyJ1IjoiZXhhbXBsZXVzZXIiLCJhIjoiY2x4eXp4eXp4MDAwMHExYjE2eXp4eXA0In0.example';
+
+  onMarkerClick() {
+    this.showPopup = true;
+  }
 }
