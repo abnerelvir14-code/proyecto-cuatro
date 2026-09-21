@@ -13,8 +13,7 @@ import { trackingReducer } from './tracking.reducer';
     App
   ],
   imports: [
-
-  ],
+],
   providers: [
     provideAnimationsAsync()
   ],
